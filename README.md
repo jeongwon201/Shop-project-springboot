@@ -1,2 +1,2 @@
-# Mall-Spring-project
+# shop-project-springboot
 personal project

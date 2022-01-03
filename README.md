@@ -1,2 +1,2 @@
-# shop-project-springboot
+# Shop
 personal project

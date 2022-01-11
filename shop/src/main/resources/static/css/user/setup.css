@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+.container {
+	width: 500px;
+	height: 100vh;
+	background-color: #ededed;
+}
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+	background-color: #ededed;
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+.btn-kakao {
+    background-color: #fbe300;
+    color: black;
+    font-weight: bold;
+}
+
+.btn-kakao:hover {
+	color:white;
+}
+
+.btn-naver {
+    background-color: #00bf18;
+    font-weight: bold;
+    color: white;
+}
+
+input::placeholder {
+	font-size: 13px;
+	
+}
+
+.social-icon {
+	width: 21px;
+	border-radius: 2px;	
+}
+
+.btn-register {
+	background-color: #2a2a2a;
+	color: white;
+	font-weight: bold;
+}
+
+.btn-register:hover {
+	color: #505050;
+}
+
+.comment {
+	font-weight: bold;
+}

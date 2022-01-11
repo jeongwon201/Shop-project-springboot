@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common_template}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/user/setup.css" type="text/css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</th:block>
+
+<div layout:fragment="content">
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<div class="container">
+
+		<div class="">
+			<article class="card-body mx-auto" style="max-width: 400px;">
+				<h4 class="card-title m-5 text-center"><img src="/img/icon/favicon.png"></h4>
+				
+				<p>
+					<a href="" class="btn btn-block btn-kakao"> <img class="social-icon" src="/img/icon/kakao.png"> 카카오 로그인
+					</a> <a href="" class="btn btn-block btn-naver"> <img class="social-icon" src="/img/icon/naver.png"> 네이버 로그인
+					</a>
+				</p>
+				
+				<p class="divider-text">
+					<span class="">OR</span>
+				</p>
+				
+				<form>
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-id-card"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="아이디(5 ~ 11자)" type="text">
+					</div>
+					
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input class="form-control" placeholder="비밀번호(숫자, 영문, 특수 문자 조합, 최소 8자)" type="password">
+					</div>
+					<!-- form-group// -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<input class="form-control" placeholder="비밀번호 확인" type="password">
+					</div>
+					
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fas fa-user"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="이름" type="text">
+					</div>
+					<!-- form-group// -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-envelope"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="이메일" type="email">
+					</div>
+					<!-- form-group// -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-phone"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="전화번호" type="text">
+					</div>
+					<!-- form-group// -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="far fa-user"></i>
+							</span>
+						</div>
+						<input name="" class="form-control" placeholder="별명" type="text">
+						
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-block btn-register">회원 가입</button>
+					</div>
+					<p class="text-center comment">
+						이미 계정이 있으신가요? <a href="">로그인</a>
+					</p>
+				</form>
+				
+			</article>
+		</div>
+		<!-- card.// -->
+
+	</div>
+	<!--container end.//-->
+
+</div>
+
+</html>

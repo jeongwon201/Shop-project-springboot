@@ -1,11 +1,10 @@
 package com.shop.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shop.domain.Member;
+import com.shop.dto.MemberDto;
 import com.shop.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,13 @@ public class MemberController {
 	private final MemberService service;
 	
 	@GetMapping("/setup")
-	public String setupAdminForm(Member member, Model model) throws Exception {
+	public String setupAdminForm(MemberDto memberDto) throws Exception {
 		
 		if(service.countAll() == 0) {
 			return "user/setup";
 		}
-		return "user/setup-fail";
+		
+		return "/";
 	}
-
+	
 }

@@ -1,70 +1,45 @@
 @charset "UTF-8";
 
-.container {
-	width: 500px;
-	height: 100vh;
-	background-color: #ededed;
+.col-center {
+	float: none;
+	margin: 0 auto;
 }
 
-.divider-text {
-    position: relative;
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-.divider-text span {
-	background-color: #ededed;
-    padding: 7px;
-    font-size: 12px;
-    position: relative;   
-    z-index: 2;
-}
-.divider-text:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-    top: 55%;
-    left: 0;
-    z-index: 1;
+.setup-logo {
+	margin: 10px 10px 50px 10px;
+	padding: 10px;
 }
 
-.btn-kakao {
-    background-color: #fbe300;
-    color: black;
-    font-weight: bold;
+.register-btn {
+	margin: 10px 10px 10px 10px;
+	padding: 10px;
 }
 
-.btn-kakao:hover {
-	color:white;
+input[name="zipCode"] {
+	width: 200px;
 }
 
-.btn-naver {
-    background-color: #00bf18;
-    font-weight: bold;
-    color: white;
+.addr-input input {
+	margin-bottom: 10px;
 }
 
-input::placeholder {
-	font-size: 13px;
-	
+.checkout__input input {
+	margin-bottom: 5px;
 }
 
-.social-icon {
-	width: 21px;
-	border-radius: 2px;	
+.checkout__input {
+	margin-bottom: 30px;
 }
 
-.btn-register {
-	background-color: #2a2a2a;
-	color: white;
-	font-weight: bold;
+.checkout__input p {
+	margin-bottom: 0px;
 }
 
-.btn-register:hover {
-	color: #505050;
+.error_message {
+	padding: 0px 5px 5px 5px;
+	color: red;
 }
 
-.comment {
-	font-weight: bold;
+.checkout__input.addr-input span {
+	color: black;
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/common_template}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/login/login.css" type="text/css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</th:block>
+
+<div layout:fragment="content">
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<section class="checkout spad">
+		<div class="container">
+			<div class="checkout__form">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-center">
+						<form id="member" th:action="@{/user/setup}" method="post">
+
+							<div class="setup-logo text-center">
+								<a href="/"><img alt="Male Shop" src="/img/logo.png"></a>
+							</div>
+							
+							<div class="checkout__input">
+								<input id="userId" name="userId" type="text" th:placeholder="#{login.placeholder.userId}" maxlength="11">
+							</div>
+
+							<div class="checkout__input">
+								<input id="userPw" name="userPw" type="password" th:placeholder="#{login.placeholder.userPw}" maxlength="20">
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-5 col-md-5">
+									<div class="checkout__input__checkbox">
+		                                <label for="acc">
+		                                    자동로그인
+		                                    <input type="checkbox" id="acc">
+		                                    <span class="checkmark"></span>
+		                                </label>
+		                            </div>
+								</div>
+								
+								<div class="col-lg-7 col-md-7 text-right">
+									<div class="checkout__input__checkbox">
+		                                <label>
+											<a>아이디 찾기</a>
+											&nbsp;|&nbsp;
+											<a>비밀번호 찾기</a>
+										</label>
+		                            </div>
+								</div>
+							</div>
+						</form>
+						
+						<div class="checkout__input">
+							<div class="text-center">
+								<button id="btn-login" class="site-btn btn-login" th:text="#{login.btn.login}">로그인</button>
+							</div>
+						</div>
+						
+						<div class="social-login">
+							<div class="checkout__input">
+								<div class="text-center">
+									<button id="btn-kakao" class="site-btn btn-kakao" th:text="#{login.btn.kakao}">카카오 로그인</button>
+								</div>
+							</div>
+							
+							<div class="checkout__input">
+								<div class="text-center">
+									<button id="btn-naver" class="site-btn btn-naver" th:text="#{login.btn.naver}">네이버 로그인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+<th:block layout:fragment="script">
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/js/user/setup.js"></script>
+</th:block>
+
+</html>

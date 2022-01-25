@@ -59,7 +59,7 @@ public class Address {
 	private LocalDateTime updDate;
 	
 	@Column(length = 1, nullable = false)
-	private String deleteYn;
+	private String deleteYn = "N";
 	
 	@Builder
 	public Address(Member member, String addrName, String zipCode, String addrSt, String addrDetail, String recipientName, String recipientPhone) {

@@ -15,10 +15,6 @@
 	padding: 10px;
 }
 
-input[name="zipCode"] {
-	width: 200px;
-}
-
 .addr-input input {
 	margin-bottom: 10px;
 }
@@ -38,8 +34,4 @@ input[name="zipCode"] {
 .error_message {
 	padding: 0px 5px 5px 5px;
 	color: red;
-}
-
-.checkout__input.addr-input span {
-	color: black;
 }

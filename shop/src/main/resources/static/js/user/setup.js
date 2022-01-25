@@ -17,7 +17,7 @@ let index = {
 				this.save();
 			}
 		});
-
+		
 		$("#userId").on("keyup", () => {
 			this.valid(1);
 		});
@@ -175,7 +175,7 @@ let index = {
 					error.html("");
 					this.phoneError = false;
 				}
-
+				
 				break;
 			}
 

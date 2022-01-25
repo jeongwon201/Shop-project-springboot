@@ -14,9 +14,15 @@ public class AddressServiceImpl implements AddressService {
 	private final AddressRepository repository;
 
 	@Override
+	public long countAll() throws Exception {
+		return repository.count();
+	}
+
+	@Override
 	public void save(Address address) throws Exception {
 		repository.save(address);
 	}
+
 	
 	
 }

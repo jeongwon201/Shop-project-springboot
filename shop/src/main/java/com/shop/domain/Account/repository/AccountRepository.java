@@ -8,6 +8,5 @@ import com.shop.domain.Account.domain.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	
-	Optional<Account> findByUsername(String username);
-	
+	long countByUsername(String username);
 }

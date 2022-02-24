@@ -10,6 +10,7 @@ let index = {
 			let validResult = this.validAll();
 			if (validResult !== "pass") {
 				validResult.focus();
+				alert("올바른 값을 입력해주세요!");
 				return false;
 			} else {
 				this.save();
@@ -40,24 +41,29 @@ let index = {
 
 		$.ajax({
 			type: "POST",
-			url: "/api/account",
+			url: "/account",
 			data: account,
 		}).done(function(res) {
 			if(res.status == "CREATED") {
 				alert("계정 생성이 완료되었습니다.");
+				location.href = "/account/login";
 			} else {
 				alert("계정 생성에 실패하였습니다.")
 			}
 		}).fail(function(res) {
 			if(res.status == "FORBIDDEN") {
-				alert("이미 해당 아이디의 계정이 존재합니다.");
+				alert("페이지 초기 설정 후 계정 등록이 가능합니다.");
 			} else if(res.status == "UNPROCESSABLE_ENTITY") {
-				alert("필드 양식에 맞는 값을 입력해주세요.")
+				alert("필드 양식에 맞는 값을 입력해주세요.");
+			} else if(res.status == "CONFLICT") {
+				alert("이미 사용 중인 이메일입니다.");
 			} else {
-				alert("계쩡 생성에 실패하였습니다.");
+				alert(res.status);
+				alert("계정 생성에 실패하였습니다.");
 			}
 		});
 	},
+	
 
 	valid: function(param) {
 
@@ -68,22 +74,40 @@ let index = {
 
 		switch (param) {
 			case 1: {
-				const idPattern = /^[a-z]+[a-z0-9_]{5,11}$/;
-				const idPattern2 = /^[a-z]/;
+				const idPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				const error = $("#username_error");
 
 				if (username.val() === "") {
 					error.html("필수 정보입니다.");
 					this.usernameError = true;
-				} else if (!idPattern2.test(username.val())) {
-					error.html("첫 글자는 영문 소문자만 가능합니다.");
-					this.usernameError = true;
 				} else if (!idPattern.test(username.val())) {
-					error.html("5 - 11자의 영문 대/소문자, 숫자, 특수기호(_)만 사용 가능합니다.");
+					error.html("올바른 형식의 이메일을 입력해주세요.");
 					this.usernameError = true;
 				} else {
-					error.html("");
-					this.usernameError = false;
+					let username = $("#username").val();
+		
+					$.ajax({
+						type: "GET",
+						url: "/account/" + username,
+					}).done(function(res) {
+						if(res.status == "OK") {
+							error.html("");
+							this.usernameError = false;
+						} else {
+							error.html("중복 확인 중 문제가 발생했습니다, 관리자에게 문의하세요.");
+							this.usernameError = true;
+						}
+					}).fail(function(res) {
+						if(res.status="CONFLICT") {
+							error.html("이미 사용 중인 이메일입니다.");
+							this.usernameError = true;
+						} else {
+							error.html("중복 확인 중 문제가 발생했습니다, 관리자에게 문의하세요.");
+							this.usernameError = true;
+						}
+					});
+					
+					
 				}
 
 				break;

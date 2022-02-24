@@ -34,7 +34,7 @@ public class Account extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
-	@Column(length = 11, nullable = false, unique = true)
+	@Column(length = 30, nullable = false, unique = true)
 	private String username;
 	
 	@Column(length = 100, nullable = false)
@@ -42,6 +42,9 @@ public class Account extends BaseEntity {
 
 	@Column(length = 22, nullable = false)
 	private String nickname;
+	
+	@Column(nullable = false)
+	private boolean emailConfirm = false;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="userId")

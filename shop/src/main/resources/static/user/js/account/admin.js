@@ -1,5 +1,5 @@
 let index = {
-
+	
 	nicknameError: true,
 	passwordError: true,
 	passwordConfirmError: true,
@@ -35,25 +35,28 @@ let index = {
 	},
 
 	save: function() {
-
+		
 		let account = $("#account").serialize();
 
 		$.ajax({
 			type: "POST",
-			url: "/api/account",
+			url: "/account/admin",
 			data: account,
 		}).done(function(res) {
 			if(res.status == "CREATED") {
 				alert("관리자 생성이 완료되었습니다.");
+				location.href="/account/login";
 			} else {
 				alert("관리자 생성에 실패하였습니다.")
 			}
+			
 		}).fail(function(res) {
 			if(res.status == "FORBIDDEN") {
 				alert("이미 관리자가 존재합니다.");
 			} else if(res.status == "UNPROCESSABLE_ENTITY") {
 				alert("필드 양식에 맞는 값을 입력해주세요.")
 			} else {
+				alert(res.status);
 				alert("관리자 생성에 실패하였습니다.");
 			}
 		});
@@ -68,18 +71,14 @@ let index = {
 
 		switch (param) {
 			case 1: {
-				const idPattern = /^[a-z]+[a-z0-9_]{5,11}$/;
-				const idPattern2 = /^[a-z]/;
+				const idPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				const error = $("#username_error");
 
 				if (username.val() === "") {
 					error.html("필수 정보입니다.");
 					this.usernameError = true;
-				} else if (!idPattern2.test(username.val())) {
-					error.html("첫 글자는 영문 소문자만 가능합니다.");
-					this.usernameError = true;
 				} else if (!idPattern.test(username.val())) {
-					error.html("5 - 11자의 영문 대/소문자, 숫자, 특수기호(_)만 사용 가능합니다.");
+					error.html("올바른 형식의 이메일을 입력해주세요.");
 					this.usernameError = true;
 				} else {
 					error.html("");

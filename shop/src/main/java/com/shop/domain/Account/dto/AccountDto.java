@@ -16,7 +16,7 @@ import lombok.Setter;
 public class AccountDto {
 	
 	@NotBlank(message = "필수 정보입니다.", groups = ValidationGroups.NotBlankGroup.class)
-	@Pattern(regexp = "[A-Za-z]{1}[A-Za-z0-9_]{5,11}", message = "5 - 11자의 영문 대/소문자, 숫자, 특수기호(_)만 사용 가능하며, 첫 글자는 영문 소문자만 가능합니다.", groups = ValidationGroups.PatternGroup.class)
+	@Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i", message = "올바른 형식의 이메일 주소를 입력해주세요.", groups = ValidationGroups.PatternGroup.class)
 	private String username;
 	
 	@NotBlank(message = "필수 정보입니다.", groups = ValidationGroups.NotBlankGroup.class)

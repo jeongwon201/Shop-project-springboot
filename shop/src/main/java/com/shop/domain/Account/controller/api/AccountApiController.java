@@ -18,39 +18,54 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/account")
+@RequestMapping("/account")
 public class AccountApiController {
 
 	private final AccountService service;
-	
+
 	@PostMapping("")
-	public ResponseEntity<?> register(@Validated AccountDto accountFormDto, BindingResult bindingResult) throws Exception {
-		if(bindingResult.hasErrors()) {
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ResponseObject<>(HttpStatus.UNPROCESSABLE_ENTITY));
-		}
-		
-		service.setupAdmin(accountFormDto.toEntity());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject<>(HttpStatus.CREATED));
-	}
-	
-//	@GetMapping("/{username}")
-//	public ResponseEntity<?> register(@PathVariable String username) throws Exception {
-//	}
-	
-	@PostMapping("/admin")
-	public ResponseEntity<?> setupPost(@Validated AccountDto accountFormDto, BindingResult bindingResult) throws Exception {
-		if(service.countAll() != 0) {
+	public ResponseEntity<?> register(@Validated AccountDto accountDto, BindingResult bindingResult) throws Exception {
+		if (service.countAll() == 0) {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseObject<>(HttpStatus.FORBIDDEN));
 		}
-		
-		if(bindingResult.hasErrors()) {
+
+		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ResponseObject<>(HttpStatus.UNPROCESSABLE_ENTITY));
 		}
-		
-		service.setupAdmin(accountFormDto.toEntity());
-		
+
+		if (service.doubleCheck(accountDto.getUsername()) != 0) {
+			
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject<>(HttpStatus.CONFLICT));
+		}
+
+		service.register(accountDto.toEntity());
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject<>(HttpStatus.CREATED));
 	}
-	
+
+	@GetMapping("/{username}")
+	public ResponseEntity<?> register(@PathVariable String username) throws Exception {
+
+		if (service.doubleCheck(username) != 0) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject<>(HttpStatus.CONFLICT));
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject<>(HttpStatus.OK));
+	}
+
+	@PostMapping("/admin")
+	public ResponseEntity<?> registerAdmin(@Validated AccountDto accountDto, BindingResult bindingResult) throws Exception {
+		if (service.countAll() != 0) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseObject<>(HttpStatus.FORBIDDEN));
+		}
+
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ResponseObject<>(HttpStatus.UNPROCESSABLE_ENTITY));
+		}
+
+		service.setupAdmin(accountDto.toEntity());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject<>(HttpStatus.CREATED));
+	}
+
 }

@@ -26,16 +26,18 @@ public class AccountController {
 		return "user/account/register";
 	}
 	
-	@GetMapping("/register/admin")
-	public String setupAdminForm(AccountDto accountDto, HttpServletResponse res) throws Exception {
+	@GetMapping("/admin")
+	public String setupAdminForm(AccountDto accountDto) throws Exception {
 		
 		if(service.countAll() == 0) {
-			return "user/setup/register";
-		} else {
-			PrintWriter out = res.getWriter();
-			out.println("<script>alert('이미 관리자가 존재합니다.')</script>");
+			return "user/account/admin";
 		}
 		
-		return "index";
+		return "/";
+	}
+	
+	@GetMapping("/login")
+	public String loginForm() throws Exception {
+		return "user/account/login";
 	}
 }

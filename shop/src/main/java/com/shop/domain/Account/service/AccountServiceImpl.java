@@ -29,9 +29,9 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public int findByUsername(String username) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public long doubleCheck(String username) throws Exception {
+		
+		return repository.countByUsername(username);
 	}
 	
 	@Override

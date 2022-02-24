@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+<title>Common</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="description" content="Male_Fashion Template">
+<meta name="keywords" content="Male_Fashion, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+<!-- Xeicon Icon -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/user/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/user/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/user/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/user/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="/user/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/user/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/user/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/user/css/style.css" type="text/css">
+<link rel="shortcut icon" href="/user/img/icon/favicon.png">
+
+<th:block layout:fragment="css"></th:block>
+</head>
+
+
+<body>
+	<div align="center" layout:fragment="header">
+	</div>
+	
+	<div layout:fragment="content"></div>
+	
+	<th:block th:replace="/user/fragments/script :: scriptFragment"></th:block>
+	
+	<th:block layout:fragment="script"></th:block>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/user/layouts/common_template}">
 
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="/user/css/auth/login.css" type="text/css">
+	<link rel="stylesheet" href="/user/css/account/login.css" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 </th:block>
 
@@ -21,7 +21,7 @@
 						<input type="hidden" id="error" th:value="${error}"/>
 						<input type="hidden" id="logout" th:value="${logout}"/>
 						
-						<form id="frm-login" th:action="@{/account/api/login}" method="post">
+						<form id="frm-login" th:action="@{/login}" method="post">
 
 							<div class="setup-logo text-center">
 								<a href="/"><img alt="Male Shop" src="/user/img/logo.png"></a>
@@ -29,19 +29,19 @@
 							
 							<div class="checkout__input">
 								<!-- Spring Security에서 username으로 읽어들임 -->
-								<input id="username" name="username" type="text" th:placeholder="#{login.placeholder.username}" maxlength="11">
+								<input id="username" name="username" type="text" th:placeholder="#{placeholder.username}" maxlength="30">
 							</div>
 
 							<div class="checkout__input">
 								<!-- Spring Security에서 password으로 읽어들임 -->
-								<input id="password" name="password" type="password" th:placeholder="#{login.placeholder.password}" maxlength="20">
+								<input id="password" name="password" type="password" th:placeholder="#{placeholder.password}" maxlength="20">
 							</div>
 							
 							<div class="row">
 								<div class="col-lg-5 col-md-5">
 									<div class="checkout__input__checkbox">
 		                                <label for="acc">
-		                                    <th:block th:text="#{login.block.persistantLogin}">자동 로그인</th:block>
+		                                    <th:block th:text="#{block.persistantLogin}">자동 로그인</th:block>
 		                                    <input type="checkbox" id="acc" name="remember-me">
 		                                    <span class="checkmark"></span>
 		                                </label>
@@ -51,31 +51,33 @@
 								<div class="col-lg-7 col-md-7 text-right">
 									<div class="checkout__input__checkbox">
 		                                <label>
-											<a th:text="#{login.a.findUsername}">아이디 찾기</a>
+											<a th:text="#{a.findUsername}">아이디 찾기</a>
 											&nbsp;|&nbsp;
-											<a th:text="#{login.a.findPassword}">비밀번호 찾기</a>
+											<a th:text="#{a.findPassword}">비밀번호 찾기</a>
 										</label>
 		                            </div>
 								</div>
 							</div>
 							
-						</form>
 							<div class="checkout__input">
 								<div class="text-center">
-									<button id="btn-login" class="site-btn btn-login" th:text="#{login.btn.login}">로그인</button>
+									<button id="btn-login" class="site-btn btn-login" th:text="#{btn.login}">로그인</button>
 								</div>
 							</div>
+							
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						</form>
 						
 						<div class="social-login">
 							<div class="checkout__input">
 								<div class="text-center">
-									<button id="btn-kakao" class="site-btn btn-kakao" th:text="#{login.btn.kakao}">카카오 로그인</button>
+									<button id="btn-kakao" class="site-btn btn-kakao" th:text="#{btn.kakao}">카카오 로그인</button>
 								</div>
 							</div>
 							
 							<div class="checkout__input">
 								<div class="text-center">
-									<button id="btn-naver" class="site-btn btn-naver" th:text="#{login.btn.naver}">네이버 로그인</button>
+									<button id="btn-naver" class="site-btn btn-naver" th:text="#{btn.naver}">네이버 로그인</button>
 								</div>
 							</div>
 						</div>
@@ -88,7 +90,7 @@
 </div>
 
 <th:block layout:fragment="script">
-	<script src="/user/js/auth/login.js"></script>
+	<!-- <script src="/user/js/auth/login.js"></script> -->
 </th:block>
 
 </html>

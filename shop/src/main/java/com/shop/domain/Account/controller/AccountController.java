@@ -36,8 +36,4 @@ public class AccountController {
 		return "/";
 	}
 	
-	@GetMapping("/login")
-	public String loginForm() throws Exception {
-		return "user/account/login";
-	}
 }

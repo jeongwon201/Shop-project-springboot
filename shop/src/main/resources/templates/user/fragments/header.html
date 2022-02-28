@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 	<div th:fragment="headerFragment">
@@ -12,16 +13,17 @@
 		<div class="offcanvas-menu-wrapper">
 	        <div class="offcanvas__option">
 	            <div class="offcanvas__links">
-	            	<th:block>
+	            	<th:block sec:authorize="!isAuthenticated()">
 		                <a th:href="@{/account/register}" th:text="#{header.register}">회원가입</a>
 		                <a th:href="@{/account/login}" th:text="#{header.login}">로그인</a>
 	            	</th:block>
-	            	<th:block>
-	            		<span></span>
+            		<th:block sec:authorize="isAuthenticated()">
 	            		<a th:text="#{header.mypage}">마이페이지</a>
-	            		<a th:text="#{header.logout}">로그아웃</a>
+	            		<form th:action="@{/logout}" method="post">
+		            		<button class="btn-logout" th:text="#{header.logout}">로그아웃</button>
+	            		</form>
 	            	</th:block>
-	                <a href="#" th:text="#{header.inquiry}">문의</a>
+                	<a href="#" th:text="#{header.inquiry}">문의</a>
 	            </div>
 	            <!-- <div class="offcanvas__top__hover">
 	                <span>Usd <i class="arrow_carrot-down"></i></span>
@@ -86,14 +88,15 @@
 	                    <div class="col-lg-6 col-md-5">
 	                        <div class="header__top__right">
 	                            <div class="header__top__links">
-	                                <th:block class="logout">
+	                                <th:block sec:authorize="!isAuthenticated()">
 						                <a th:href="@{/account/register}" th:text="#{header.register}">회원가입</a>
 						                <a th:href="@{/account/login}" th:text="#{header.login}">로그인</a>
 					            	</th:block>
-				            		<th:block>
-					            		<span></span>
+				            		<th:block sec:authorize="isAuthenticated()">
 					            		<a th:text="#{header.mypage}">마이페이지</a>
-					            		<a th:text="#{header.logout}">로그아웃</a>
+					            		<form th:action="@{/logout}" method="post">
+						            		<button class="btn-logout" th:text="#{header.logout}">로그아웃</button>
+					            		</form>
 					            	</th:block>
 				                	<a href="#" th:text="#{header.inquiry}">문의</a>
 	                            </div>

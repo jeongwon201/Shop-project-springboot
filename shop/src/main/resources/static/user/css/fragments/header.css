@@ -1,22 +1,41 @@
 @charset "UTF-8";
 
 .header__top__links form {
-    color: #ffffff;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-right: 28px;
-    display: inline-block;
+	color: #ffffff;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-right: 28px;
+	display: inline-block;
 }
 
 .btn-logout {
 	padding: 0;
 	background-color: #111111;
 	color: #ffffff;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: inline-block;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	display: inline-block;
 	border: 0;
 	outline: 0;
+}
+
+.offcanvas__links form {
+	color: #ffffff;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	display: inline-block;
+}
+
+.offcanvas__links form button {
+	color: #111111;
+	background-color: #ffffff;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-right: 16px;
+	display: inline-block;
+	font-weight: 600;
 }

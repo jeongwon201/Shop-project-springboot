@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -19,6 +22,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import com.shop.global.common.security.handler.CustomAccessDeniedHandler;
 import com.shop.global.common.security.handler.CustomAuthenticationSuccessHandler;
+import com.shop.global.common.security.service.CustomOAuth2UserService;
 import com.shop.global.common.security.service.CustomUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -47,6 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling()
 		.accessDeniedHandler(accessDeniedHandler());
 		
+		http.oauth2Login()
+		.userInfoEndpoint()
+		.userService(customOAuth2UserService());
+		
 		http.logout()
 		.logoutUrl("/logout")
 		.logoutSuccessUrl("/");
@@ -61,6 +69,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public UserDetailsService customUserDetailsService() {
 		return new CustomUserDetailsService();
+	}
+	
+	@Bean
+	public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService() {
+		return new CustomOAuth2UserService();
 	}
 	
 	@Bean

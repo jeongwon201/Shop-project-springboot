@@ -65,6 +65,12 @@ public class Account extends BaseEntity {
 		authList.add(auth);
 	}
 	
+	public Account oAuthUpdate(String nickname) {
+		this.nickname = nickname;
+		
+		return this;
+	}
+	
 	@Builder
     public Account(String username, String password, String nickname) {
         this.username = username;

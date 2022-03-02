@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 	
+	final private CustomOAuth2UserService customOAuth2UserService;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService())
@@ -52,8 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.accessDeniedHandler(accessDeniedHandler());
 		
 		http.oauth2Login()
+		.defaultSuccessUrl("/")
 		.userInfoEndpoint()
-		.userService(customOAuth2UserService());
+		.userService(customOAuth2UserService);
 		
 		http.logout()
 		.logoutUrl("/logout")
@@ -71,10 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomUserDetailsService();
 	}
 	
-	@Bean
-	public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService() {
-		return new CustomOAuth2UserService();
-	}
+	/*
+	 * @Bean public OAuth2UserService<OAuth2UserRequest, OAuth2User>
+	 * customOAuth2UserService() { return new CustomOAuth2UserService(); }
+	 */
 	
 	@Bean
 	public AuthenticationSuccessHandler authenticationSuccessHandler() {

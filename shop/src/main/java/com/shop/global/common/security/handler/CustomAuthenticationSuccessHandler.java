@@ -28,5 +28,5 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
-
+	
 }

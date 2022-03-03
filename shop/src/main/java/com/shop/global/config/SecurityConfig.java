@@ -23,8 +23,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import com.shop.global.common.security.handler.CustomAccessDeniedHandler;
 import com.shop.global.common.security.handler.CustomAuthenticationSuccessHandler;
-import com.shop.global.common.security.service.CustomOAuth2UserService;
-import com.shop.global.common.security.service.CustomUserDetailsService;
+import com.shop.global.common.security.service.PrincipalOAuth2UserService;
+import com.shop.global.common.security.service.PrincipalDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,11 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 	
-	final private CustomOAuth2UserService customOAuth2UserService;
+	final private PrincipalOAuth2UserService customOAuth2UserService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(customUserDetailsService())
+		auth.userDetailsService(principalDetailsService())
 		.passwordEncoder(passwordEncoder());
 	}
 
@@ -49,15 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 		.loginPage("/account/login")
 		.loginProcessingUrl("/login")
-		.successHandler(authenticationSuccessHandler());
-		
-		http.exceptionHandling()
-		.accessDeniedHandler(accessDeniedHandler());
+		.defaultSuccessUrl("/");
 		
 		http.oauth2Login()
 		.defaultSuccessUrl("/")
 		.userInfoEndpoint()
 		.userService(customOAuth2UserService);
+
+		http.exceptionHandling()
+		.accessDeniedHandler(accessDeniedHandler());
 		
 		http.logout()
 		.logoutUrl("/logout")
@@ -71,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public UserDetailsService customUserDetailsService() {
-		return new CustomUserDetailsService();
+	public UserDetailsService principalDetailsService() {
+		return new PrincipalDetailsService();
 	}
 	
 	/*

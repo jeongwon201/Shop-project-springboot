@@ -93,7 +93,7 @@
 						                <a th:href="@{/account/login}" th:text="#{header.login}">로그인</a>
 					            	</th:block>
 				            		<th:block sec:authorize="isAuthenticated()">
-				            			<span sec:authentication="principal"></span>
+				            			<span sec:authentication="principal.username"></span>
 					            		<a th:text="#{header.mypage}">마이페이지</a>
 					            		<form th:action="@{/logout}" method="post">
 						            		<button class="btn-logout" th:text="#{header.logout}">로그아웃</button>

@@ -7,12 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.repository.AccountRepository;
-import com.shop.global.common.security.domain.CustomUser;
+import com.shop.global.common.security.domain.PrincipalDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CustomUserDetailsService implements UserDetailsService {
+public class PrincipalDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private AccountRepository repository;
@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		Account account = repository.findByUsername(username).orElse(null);
 		
-		return account == null ? null : new CustomUser(account);
+		return account == null ? null : new PrincipalDetails(account);
 	}
 
 }

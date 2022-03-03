@@ -4,41 +4,36 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Map;
 
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 import com.shop.domain.Account.domain.Account;
 
 import lombok.Getter;
 
 @Getter
 public class OAuthAttributes {
-	private Map<String, Object> attributes;
-	private String nameAttributeKey;
-	private String email;
-	private String nickname;
-
-	public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname) {
-		this.attributes = attributes;
-		this.nameAttributeKey = nameAttributeKey;
-		this.email = email;
-		this.nickname = nickname;
+	
+	private String provider;
+	private OAuth2User oAuth2User;
+	
+	public OAuthAttributes(String provider, OAuth2User oAuth2User) {
+		this.provider = provider;
+		this.oAuth2User = oAuth2User;
 	}
 
-	public OAuthAttributes() {
-
-	}
-
-	public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-		if (registrationId.equals("kakao")) {
+	public static Account of(String provider, OAuth2User oAuth2User) {
+		if (provider.equals("kakao")) {
 			return ofKakao(userNameAttributeName, attributes);
 		}
 
 		return ofNaver(userNameAttributeName, attributes);
 	}
 
-	private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
-		Map<String, Object> kakao_account = (Map<String, Object>) attributes.get("kakao_account");
-		Map<String, Object> profile = (Map<String, Object>) kakao_account.get("profile");
-
-		return new OAuthAttributes(attributes, userNameAttributeName, (String) kakao_account.get("email"), (String) profile.get("nickname"));
+	private static Account ofKakao(String provider, OAuth2User oAuth2User) {
+		
+		
+		
+		return account;
 	}
 
 	private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {

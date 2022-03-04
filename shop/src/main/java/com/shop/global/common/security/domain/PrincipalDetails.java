@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.shop.domain.Account.domain.Account;
+import com.shop.global.common.security.userInfo.OAuth2UserInfo;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -22,10 +23,15 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	private Account account;
 	
-	private Map<String, Object> attributes;
+	private OAuth2UserInfo oAuth2UserInfo;
 	
 	public PrincipalDetails(Account account) {
 		this.account = account;
+	}
+	
+	public PrincipalDetails(Account account, OAuth2UserInfo oAuth2UserInfo) {
+		this.account = account;
+		this.oAuth2UserInfo = oAuth2UserInfo;
 	}
 	
 	@Override
@@ -68,13 +74,12 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	// OAuth2User
 	@Override
 	public Map<String, Object> getAttributes() {
-		return attributes;
+		return oAuth2UserInfo.getAttributes();
 	}
 
 	@Override
 	public String getName() {
-		String sub = attributes.get("sub").toString();
-		return sub;
+		return oAuth2UserInfo.getProviderId();
 	}
 	
 	

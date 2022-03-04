@@ -77,6 +77,12 @@ public class Account extends BaseEntity {
 		this.password = passwordEncoder.encode(this.password);
 	}
 	
+	public Account oAuthUpdate(String nickname) {
+		this.nickname = nickname;
+		
+		return this;
+	}
+	
 	@Builder
     public Account(String username, String password, String nickname) {
         this.username = username;
@@ -90,5 +96,6 @@ public class Account extends BaseEntity {
         this.password = password;
         this.nickname = nickname;
         this.oAuth = oAuth;
+        addAuth();
     }
 }

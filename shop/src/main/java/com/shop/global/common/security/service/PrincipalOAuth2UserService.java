@@ -1,6 +1,8 @@
 package com.shop.global.common.security.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import java.security.SecureRandom;
+import java.util.Date;
+
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.repository.AccountRepository;
-import com.shop.global.common.security.domain.OAuthAttributes;
 import com.shop.global.common.security.domain.PrincipalDetails;
 import com.shop.global.common.security.userInfo.KakaoUserInfo;
 import com.shop.global.common.security.userInfo.OAuth2UserInfo;
@@ -22,7 +23,6 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 	
 	
 	private final AccountRepository repository;
-	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -36,20 +36,36 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 			oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
 		}
 		
-		Account account = Account.builder()
+		Account oAuthAccount = Account.builder()
 				.username(provider + "_" + oAuth2UserInfo.getProviderId() + "_" + oAuth2UserInfo.getEmail())
-				.password()
+				.password(setRandomPassword())
+				.nickname(oAuth2UserInfo.getName())
+				.oAuth(provider)
+				.build();
 		
-		return new PrincipalDetails(account, oAuth2User.getAttributes());
+		Account account = repository.findByUsername(oAuthAccount.getUsername())
+				.orElse(account = oAuthAccount);
+		
+		return new PrincipalDetails(account, oAuth2UserInfo);
 	}
 	
-	private Account saveOrUpdate(OAuthAttributes attributes) {
-		Account account = repository.findByUsername(attributes.getEmail())
-				.map(entity -> entity.oAuthUpdate(attributes.getNickname()))
-				.orElse(attributes.toEntity());
-		
-		
-		
-		return repository.save(account);
+	
+	public String setRandomPassword() {
+		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+				'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '!', '@', '#', '$', '%', '^', '&' };
+
+		StringBuffer sb = new StringBuffer();
+		SecureRandom sr = new SecureRandom();
+		sr.setSeed(new Date().getTime());
+
+		int idx = 0;
+		int len = charSet.length;
+		for (int i = 0; i < 15; i++) {
+			idx = sr.nextInt(len);
+			sb.append(charSet[idx]);
+		}
+
+		return sb.toString();
 	}
 }

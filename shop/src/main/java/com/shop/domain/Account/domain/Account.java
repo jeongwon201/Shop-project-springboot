@@ -14,10 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.shop.domain.model.BaseEntity;
-import com.shop.global.utils.emuns.UserRole;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -44,7 +44,7 @@ public class Account extends BaseEntity {
 	private String nickname;
 	
 	@Column(nullable = false)
-	private String oAuth = "none";
+	private String oAuth;
 	
 	@Column(nullable = false)
 	private boolean isAccountNonExpired = true;
@@ -77,25 +77,11 @@ public class Account extends BaseEntity {
 		this.password = passwordEncoder.encode(this.password);
 	}
 	
-	public Account oAuthUpdate(String nickname) {
-		this.nickname = nickname;
-		
-		return this;
-	}
-	
-	@Builder
-    public Account(String username, String password, String nickname) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-    }
-	
 	@Builder
     public Account(String username, String password, String nickname, String oAuth) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.oAuth = oAuth;
-        addAuth();
     }
 }

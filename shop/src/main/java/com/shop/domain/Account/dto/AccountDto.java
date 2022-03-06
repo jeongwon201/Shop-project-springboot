@@ -8,7 +8,6 @@ import com.shop.global.utils.emuns.UserRole;
 import com.shop.global.utils.validation.ValidationGroups;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -34,6 +33,7 @@ public class AccountDto {
 				.username(this.username)
 				.password(this.password)
 				.nickname(this.nickname)
+				.oAuth("none")
 				.build();
 	}
 	

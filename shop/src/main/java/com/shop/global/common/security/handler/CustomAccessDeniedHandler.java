@@ -1,7 +1,6 @@
 package com.shop.global.common.security.handler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +20,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 		
 		log.info("액세스 거부");
 		
-//		PrintWriter write = response.getWriter();
-//		write.print("<script>alert('접근이 제한되었습니다.')</script>");
 	}
 
 }

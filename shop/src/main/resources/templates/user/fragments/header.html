@@ -18,9 +18,10 @@
 		                <a th:href="@{/account/login}" th:text="#{header.login}">로그인</a>
 	            	</th:block>
             		<th:block sec:authorize="isAuthenticated()">
+            			<div class="small_auth"><span sec:authentication="principal.account.nickname"></span>님</div>
 	            		<a th:text="#{header.mypage}">마이페이지</a>
 	            		<form th:action="@{/logout}" method="post">
-		            		<button class="btn-logout" th:text="#{header.logout}">로그아웃</button>
+		            		<button th:text="#{header.logout}">로그아웃</button>
 	            		</form>
 	            	</th:block>
                 	<a href="#" th:text="#{header.inquiry}">문의</a>
@@ -93,10 +94,10 @@
 						                <a th:href="@{/account/login}" th:text="#{header.login}">로그인</a>
 					            	</th:block>
 				            		<th:block sec:authorize="isAuthenticated()">
-				            			<span sec:authentication="principal.account.nickname"></span>
+				            			<span class="auth"><span sec:authentication="principal.account.nickname"></span>님</span>
 					            		<a th:text="#{header.mypage}">마이페이지</a>
 					            		<form th:action="@{/logout}" method="post">
-						            		<button class="btn-logout" th:text="#{header.logout}">로그아웃</button>
+						            		<button th:text="#{header.logout}">로그아웃</button>
 					            		</form>
 					            	</th:block>
 				                	<a href="#" th:text="#{header.inquiry}">문의</a>

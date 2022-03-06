@@ -9,9 +9,6 @@ import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.repository.AccountRepository;
 import com.shop.global.common.security.domain.PrincipalDetails;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class PrincipalDetailsService implements UserDetailsService {
 	
 	@Autowired

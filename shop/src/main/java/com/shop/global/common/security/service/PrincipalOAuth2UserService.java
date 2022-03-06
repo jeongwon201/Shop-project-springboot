@@ -3,6 +3,8 @@ package com.shop.global.common.security.service;
 import java.security.SecureRandom;
 import java.util.Date;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -20,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
-	
 	
 	private final AccountRepository repository;
 	
@@ -43,10 +44,17 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 				.oAuth(provider)
 				.build();
 		
-		Account account = repository.findByUsername(oAuthAccount.getUsername())
-				.orElse(account = oAuthAccount);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		oAuthAccount.encodePassword(passwordEncoder);
 		
-		return new PrincipalDetails(account, oAuth2UserInfo);
+		oAuthAccount.addAuth();
+		
+		System.out.println("이거는 카카오여야하는데;;;"+ oAuthAccount.getOAuth());
+		Account account = repository.findByUsername(oAuthAccount.getUsername())
+				.orElseGet(() -> repository.save(oAuthAccount));
+		
+		
+		return new PrincipalDetails(oAuthAccount, oAuth2UserInfo);
 	}
 	
 	

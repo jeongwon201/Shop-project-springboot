@@ -49,7 +49,6 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 		
 		oAuthAccount.addAuth();
 		
-		System.out.println("이거는 카카오여야하는데;;;"+ oAuthAccount.getOAuth());
 		Account account = repository.findByUsername(oAuthAccount.getUsername())
 				.orElseGet(() -> repository.save(oAuthAccount));
 		

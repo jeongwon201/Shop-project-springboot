@@ -18,18 +18,17 @@
 			<div class="checkout__form">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-center">
-						<input type="hidden" id="error" th:value="${error}"/>
-						<input type="hidden" id="logout" th:value="${logout}"/>
 						
-						<form id="frm-login" th:action="@{/login}" method="post">
+						<form id="frm-login" th:action="@{/account/login}" method="post">
 
 							<div class="setup-logo text-center">
 								<a href="/"><img alt="Male Shop" src="/user/img/logo.png"></a>
 							</div>
 							
+							
 							<div class="checkout__input">
 								<!-- Spring Security에서 username으로 읽어들임 -->
-								<input id="username" name="username" type="text" th:placeholder="#{placeholder.username}" maxlength="30">
+								<input id="username" name="username" type="text" th:placeholder="#{placeholder.username}" maxlength="30" autocomplete="off">
 							</div>
 
 							<div class="checkout__input">
@@ -58,6 +57,10 @@
 		                            </div>
 								</div>
 							</div>
+							
+							<div class="checkout__input error_box text-center">
+								<span class="error_message" th:text="${#request.getAttribute('msg')}">msg</span>
+							</div>							
 							
 							<div class="checkout__input">
 								<div class="text-center">
@@ -90,7 +93,6 @@
 </div>
 
 <th:block layout:fragment="script">
-	<!-- <script src="/user/js/auth/login.js"></script> -->
 </th:block>
 
 </html>

@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/account")
 public class LoginController {
 	
-	@GetMapping("/login")
+	@RequestMapping("/login")
 	public String loginForm(String error) throws Exception {
 		return "user/account/login";
 	}

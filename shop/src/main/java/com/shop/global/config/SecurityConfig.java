@@ -13,11 +13,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.shop.global.common.security.handler.CustomAccessDeniedHandler;
+import com.shop.global.common.security.handler.CustomAuthenticationFailureHandler;
 import com.shop.global.common.security.handler.CustomAuthenticationSuccessHandler;
 import com.shop.global.common.security.service.PrincipalDetailsService;
 import com.shop.global.common.security.service.PrincipalOAuth2UserService;
@@ -44,14 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
 		.loginPage("/account/login")
-		.loginProcessingUrl("/login")
-		.defaultSuccessUrl("/");
+		.loginProcessingUrl("/account/login")
+		.successHandler(authenticationSuccessHandler())
+		.failureHandler(authenticationFailureHandler());
 		
 		http.oauth2Login()
 		.defaultSuccessUrl("/")
 		.userInfoEndpoint()
 		.userService(customOAuth2UserService);
-
+		
 		http.exceptionHandling()
 		.accessDeniedHandler(accessDeniedHandler());
 		
@@ -82,10 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	public AuthenticationFailureHandler authenticationFailureHandler() {
+		return new CustomAuthenticationFailureHandler();
+	}
+	
+	@Bean
 	public AccessDeniedHandler accessDeniedHandler() {
 		return new CustomAccessDeniedHandler();
 	}
-	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -98,4 +105,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		return repo;
 	}
+	
 }

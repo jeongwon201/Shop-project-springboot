@@ -15,6 +15,7 @@ import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.repository.AccountRepository;
 import com.shop.global.common.security.domain.PrincipalDetails;
 import com.shop.global.common.security.userInfo.KakaoUserInfo;
+import com.shop.global.common.security.userInfo.NaverUserInfo;
 import com.shop.global.common.security.userInfo.OAuth2UserInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -35,15 +36,17 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 		
 		if(provider.equals("kakao")) {
 			oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
+		} else if(provider.equals("naver")) {
+			oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
 		}
 		
 		Account oAuthAccount = Account.builder()
-				.username(provider + "_" + oAuth2UserInfo.getProviderId() + "_" + oAuth2UserInfo.getEmail())
+				.username(provider + "_" + oAuth2UserInfo.getEmail())
 				.password(setRandomPassword())
 				.nickname(oAuth2UserInfo.getName())
 				.oAuth(provider)
 				.build();
-		
+
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		oAuthAccount.encodePassword(passwordEncoder);
 		

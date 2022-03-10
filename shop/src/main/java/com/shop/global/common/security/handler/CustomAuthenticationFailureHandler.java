@@ -37,7 +37,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
 		} else if (exception instanceof LockedException) {
 			System.out.println("error : LockedException");
-			request.setAttribute("msg", "잠긴 계정입니다..");
+			request.setAttribute("msg", "이메일 인증을 완료해주세요.");
 
 		} else if (exception instanceof DisabledException) {
 			System.out.println("error : DisabledException");

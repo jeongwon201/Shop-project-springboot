@@ -50,7 +50,7 @@ public class Account extends BaseEntity {
 	private boolean isAccountNonExpired = true;
 
 	@Column(nullable = false)
-	private boolean isAccountNonLocked = true;
+	private boolean isAccountNonLocked = false;
 
 	@Column(nullable = false)
 	private boolean isCredentialsNonExpired = true;

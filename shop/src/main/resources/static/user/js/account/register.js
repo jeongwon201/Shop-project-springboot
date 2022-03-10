@@ -1,6 +1,6 @@
 let index = {
 
-	nicknameError: true,
+	usernameError: true,
 	passwordError: true,
 	passwordConfirmError: true,
 	nicknameError: true,
@@ -85,14 +85,13 @@ let index = {
 					this.usernameError = true;
 				} else {
 					let username = $("#username").val();
-		
+					this.usernameError = false;
 					$.ajax({
 						type: "GET",
 						url: "/account/" + username,
 					}).done(function(res) {
 						if(res.status == "OK") {
 							error.html("");
-							this.usernameError = false;
 						} else {
 							error.html("중복 확인 중 문제가 발생했습니다, 관리자에게 문의하세요.");
 							this.usernameError = true;
@@ -106,8 +105,7 @@ let index = {
 							this.usernameError = true;
 						}
 					});
-					
-					
+										
 				}
 
 				break;
@@ -182,10 +180,6 @@ let index = {
 	},
 
 	validAll: function() {
-		for (i = 1; i < 8; i++) {
-			this.valid(i);
-		}
-
 		if (this.usernameError === true) {
 			return $("#username");
 		} else if (this.passwordError === true) {

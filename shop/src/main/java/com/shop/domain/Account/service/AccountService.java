@@ -12,4 +12,5 @@ public interface AccountService {
 	
     public void setupAdmin(Account account) throws Exception;
     
+    public void verifyEmail(String username) throws Exception;
 }

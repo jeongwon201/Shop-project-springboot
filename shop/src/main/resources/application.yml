@@ -13,7 +13,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
       use-new-id-generator-mappings: false
@@ -57,17 +57,21 @@ spring:
   mail:
     host: smtp.naver.com
     port: 465
-    username: ENC(n11mMZ8qKcLGutDmkiGETFHMOzWQ0Bbe)
-    password: ENC(xrtzRREYsOQuLbZj3W8/JSdAOCss7Qk4)
+    username: ENC(ai0J8EUNztUirdXMVog9jzSF5XaAd3udPF0+EPlcZVo=)
+    password: ENC(/nGhn6Qq0L47OhduZ7ssN4JOeyjRIDF3)
     properties:
       mail:
-        stattls:
-          enabled: true
-          required: true
-        auth: true
-        connectiontimeout: 5000
-        timeout: 5000
-        writetimeout: 5000
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+            trust: smtp.naver.com
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
 
 #log level settings
 logging:

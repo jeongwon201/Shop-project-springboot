@@ -1,4 +1,4 @@
-package com.shop.domain.Account.service;
+package com.shop.domain.EmailToken.service;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

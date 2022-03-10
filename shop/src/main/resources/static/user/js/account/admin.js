@@ -1,6 +1,6 @@
 let index = {
 	
-	nicknameError: true,
+	usernameError: true,
 	passwordError: true,
 	passwordConfirmError: true,
 	nicknameError: true,
@@ -157,7 +157,7 @@ let index = {
 	},
 
 	validAll: function() {
-		for (i = 1; i < 8; i++) {
+		for (i = 1; i < 5; i++) {
 			this.valid(i);
 		}
 

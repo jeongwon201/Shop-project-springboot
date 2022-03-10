@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.domain.Account.dto.AccountDto;
 import com.shop.domain.Account.service.AccountService;
+import com.shop.domain.EmailToken.service.EmailTokenService;
 import com.shop.global.common.response.ResponseObject;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class AccountApiController {
 
 	private final AccountService service;
-
+	private final EmailTokenService emailTokenService;
+	
 	@PostMapping("")
 	public ResponseEntity<?> register(@Validated AccountDto accountDto, BindingResult bindingResult) throws Exception {
 		if (service.countAll() == 0) {
@@ -37,8 +39,9 @@ public class AccountApiController {
 			
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject<>(HttpStatus.CONFLICT));
 		}
-
+		
 		service.register(accountDto.toEntity());
+		emailTokenService.createEmailToken(accountDto.getUsername());
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject<>(HttpStatus.CREATED));
 	}
@@ -64,7 +67,8 @@ public class AccountApiController {
 		}
 
 		service.setupAdmin(accountDto.toEntity());
-
+		emailTokenService.createEmailToken(accountDto.getUsername());
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject<>(HttpStatus.CREATED));
 	}
 

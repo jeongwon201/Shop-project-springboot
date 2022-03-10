@@ -1,5 +1,7 @@
 package com.shop.domain.Account.service;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +42,12 @@ public class AccountServiceImpl implements AccountService {
 		account.addAdmin();
 
 		repository.save(account);
+	}
+
+	@Override
+	public void verifyEmail(String username) throws Exception {
+		Account account = repository.findByUsername(username).orElse(null);
+		
+		account.isAccountNonLockedUpdate();
 	}
 }

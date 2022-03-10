@@ -77,6 +77,10 @@ public class Account extends BaseEntity {
 		this.password = passwordEncoder.encode(this.password);
 	}
 	
+	public void isAccountNonLockedUpdate() {
+		this.isAccountNonLocked = false;
+	}
+	
 	@Builder
     public Account(String username, String password, String nickname, String oAuth) {
         this.username = username;

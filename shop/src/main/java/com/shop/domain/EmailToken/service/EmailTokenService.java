@@ -6,7 +6,6 @@ public interface EmailTokenService {
 	
 	public void createEmailToken(String username);
 	
-	public EmailToken findByUsernameAndTokenAndExpirationDateAfterAndExpired(String username, String token);
+	public EmailToken findByTokenAndExpirationDateAfterAndExpired(String token);
 	
-	public boolean verify(String token);
 }

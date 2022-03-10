@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shop.domain.EmailToken.domain.EmailToken;
 
 public interface EmailTokenRepository extends JpaRepository<EmailToken, Long> {
-	Optional<EmailToken> findByUsernameAndTokenAndExpirationDateAfterAndExpired(String username, String token, LocalDateTime now, boolean expired);
+	Optional<EmailToken> findByTokenAndExpirationDateAfterAndExpired(String token, LocalDateTime now, boolean expired);
 }

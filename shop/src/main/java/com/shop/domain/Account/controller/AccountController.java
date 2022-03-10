@@ -32,4 +32,10 @@ public class AccountController {
 		return "/";
 	}
 	
+	@GetMapping("/emailVerification")
+	public String emailVerification() throws Exception {
+		
+		return "user/account/emailVerification";
+	}
+	
 }

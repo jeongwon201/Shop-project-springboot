@@ -5,10 +5,10 @@ server:
 spring:
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/shop?serverTimezone=UTC&useSSL=false
-    username: jeongwon
-    password: root
+    driver-class-name: ENC(Exn1HtBHYTsjGwNou8uY2xHGOLDqN+g3KjG9cJOYJcwrG0OpIL8sBA==)
+    url: ENC(QdSwGP0H9y8T9oKHwxPhxq3bLf5kYr5YD2+AWCnfFOPRB1QBNQDXmEoWkO1iebRZlCEy7HPE6Aa9WCTi6i7Ln3IWD5XHDp2XHhoG2Ly2XJE=)
+    username: ENC(evrGsTrRWDYdxA80AGiTVpqiy4N5XHmk)
+    password: ENC(IS9Hr4GT0DJtG4REYaJV4Q==)
 
   jpa:
     open-in-view: false
@@ -25,7 +25,7 @@ spring:
       client:
         registration:
           kakao:
-            client-id:  4c2495a3f19c8aa9c9942bd87ca19fa8
+            client-id:  ENC(7iV8zSDyHPgiPs0IrSIgoTo//zbzzlM9IxMQ6PZXT9ZBdGoVtM9uezgI54N3NQ1P)
             client-name: Kakao
             redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
             scope: profile_nickname, account_email
@@ -33,7 +33,7 @@ spring:
             client-authentication-method: POST
           
           naver:
-            client-id: q_mUleZPu1UJ_AvhR1ib
+            client-id: ENC(QxTTQOW2aU0Y9nPTXyn99G7J8sUIbbJxWfBRTrS6Tic=)
             client-secret: ndDlD5htaJ
             client-name: Naver
             scope: email, nickname
@@ -58,3 +58,7 @@ spring:
 logging:
   level:
     root: info
+    
+#site properties
+site:
+  name: shop

@@ -26,6 +26,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 		
 		log.info(account.getUsername() + "님이 로그인하셨습니다.");
 		
+		if(account.getAuth() == "ROLE_GUEST") {
+			getRedirectStrategy().sendRedirect(request, response, "/account/verify-email");
+		}
+		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 	

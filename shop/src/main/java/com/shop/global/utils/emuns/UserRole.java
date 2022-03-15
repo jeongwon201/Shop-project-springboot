@@ -2,7 +2,9 @@ package com.shop.global.utils.emuns;
 
 public enum UserRole implements EnumModel {
     ADMIN("ROLE_ADMIN"),
-    USER("ROLE_USER");
+    STAFF("ROLE_STAFF"),
+    USER("ROLE_USER"),
+    GUEST("ROLE_GUEST");
 
     private final String roleName;
 
@@ -19,4 +21,5 @@ public enum UserRole implements EnumModel {
     public String getValue() {
         return roleName;
     }
+    
 }

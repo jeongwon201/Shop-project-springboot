@@ -1,8 +1,8 @@
 package com.shop.global.common.security.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,8 +36,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return account.getAuthList().stream()
-				.map(auth -> new SimpleGrantedAuthority(auth.getRole().getValue())).collect(Collectors.toList());
+		
+		Collection<GrantedAuthority> collect = new ArrayList<>();
+		collect.add(new SimpleGrantedAuthority(account.getAuth()));
+		return collect;
 	}
 
 

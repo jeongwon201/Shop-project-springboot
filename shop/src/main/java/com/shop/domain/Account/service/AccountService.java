@@ -1,5 +1,7 @@
 package com.shop.domain.Account.service;
 
+import java.util.Optional;
+
 import com.shop.domain.Account.domain.Account;
 
 public interface AccountService {
@@ -12,5 +14,6 @@ public interface AccountService {
 	
     public void setupAdmin(Account account) throws Exception;
     
-    public void verifyEmail(String username) throws Exception;
+    Optional<Account> findById(Long userId) throws Exception;
+    
 }

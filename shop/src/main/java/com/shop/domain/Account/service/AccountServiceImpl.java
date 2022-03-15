@@ -25,7 +25,6 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void register(Account account) throws Exception {
 		account.encodePassword(this.passwordEncoder);
-		account.addAuth();
 		
 		repository.save(account);
 	}
@@ -39,15 +38,13 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void setupAdmin(Account account) throws Exception {
 		account.encodePassword(this.passwordEncoder);
-		account.addAdmin();
-
+		
 		repository.save(account);
 	}
 
 	@Override
-	public void verifyEmail(String username) throws Exception {
-		Account account = repository.findByUsername(username).orElse(null);
-		
-		account.isAccountNonLockedUpdate();
+	public Optional<Account> findById(Long userId) throws Exception {
+		return repository.findById(userId);
 	}
+
 }

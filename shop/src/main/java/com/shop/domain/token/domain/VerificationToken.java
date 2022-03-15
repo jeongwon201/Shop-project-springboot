@@ -1,4 +1,4 @@
-package com.shop.domain.EmailToken.domain;
+package com.shop.domain.token.domain;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+import com.shop.domain.Account.domain.Account;
 import com.shop.domain.model.BaseEntity;
 
 import lombok.AccessLevel;
@@ -19,35 +22,37 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class EmailToken extends BaseEntity{
+public class VerificationToken extends BaseEntity{
 	
 	private static final long EMAIL_TOKEN_EXPIRATION_TIME_VALUE = 5L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long emailTokenId;
+	private Long emailVerificationId;
 	
-	@Column
-	private LocalDateTime expirationDate;
-	
-	@Column
-	private String username;
+	@OneToOne
+	@JoinColumn(name = "userId")
+	private Account account;
 	
 	@Column
 	private String token;
 	
 	@Column
-	private boolean expired;
+	private LocalDateTime expirationDate;
+
+	@Column
+	private boolean isVerified = false;
 	
+
 	public void useToken() {
-		expired = true;
+		this.isVerified = true;
 	}
-	
+
 	@Builder
-	public EmailToken(String username) {
+	public VerificationToken(Account account) {
 		this.expirationDate = LocalDateTime.now().plusMinutes(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
-		this.username = username;
-		this.token = UUID.randomUUID().toString();
-		this.expired = false;
+		this.account = account;
+		this.token = account.getUserId() + "-" + UUID.randomUUID().toString();
+		this.isVerified = false;
 	}
 }

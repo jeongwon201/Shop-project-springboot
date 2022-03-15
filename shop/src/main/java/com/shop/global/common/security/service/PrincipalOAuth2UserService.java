@@ -17,6 +17,7 @@ import com.shop.global.common.security.domain.PrincipalDetails;
 import com.shop.global.common.security.userInfo.KakaoUserInfo;
 import com.shop.global.common.security.userInfo.NaverUserInfo;
 import com.shop.global.common.security.userInfo.OAuth2UserInfo;
+import com.shop.global.utils.emuns.UserRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,7 +51,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		oAuthAccount.encodePassword(passwordEncoder);
 		
-		oAuthAccount.addAuth();
+		oAuthAccount.updateAuth(UserRole.USER);
 		
 		Account account = repository.findByUsername(oAuthAccount.getUsername())
 				.orElseGet(() -> repository.save(oAuthAccount));

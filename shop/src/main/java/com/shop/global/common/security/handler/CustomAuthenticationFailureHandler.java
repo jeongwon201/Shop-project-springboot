@@ -37,15 +37,15 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
 		} else if (exception instanceof LockedException) {
 			System.out.println("error : LockedException");
-			request.setAttribute("msg", "이메일 인증을 완료해주세요.");
+			request.setAttribute("msg", "잠긴 계정입니다.");
 
 		} else if (exception instanceof DisabledException) {
 			System.out.println("error : DisabledException");
-			request.setAttribute("msg", "비활성화된 계정입니다..");
+			request.setAttribute("msg", "비활성화된 계정입니다.");
 
 		} else if (exception instanceof AccountExpiredException) {
 			System.out.println("error : AccountExpiredException");
-			request.setAttribute("msg", "만료된 계정입니다..");
+			request.setAttribute("msg", "만료된 계정입니다.");
 
 		} else if (exception instanceof CredentialsExpiredException) {
 			System.out.println("error : CredentialsExpiredException");

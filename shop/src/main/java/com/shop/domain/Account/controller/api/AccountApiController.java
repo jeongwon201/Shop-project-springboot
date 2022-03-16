@@ -7,18 +7,18 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.dto.AccountDto;
 import com.shop.domain.Account.service.AccountService;
-import com.shop.domain.token.domain.VerificationToken;
-import com.shop.domain.token.service.EmailSender;
-import com.shop.domain.token.service.VerificationTokenService;
+import com.shop.domain.verificationToken.domain.VerificationToken;
+import com.shop.domain.verificationToken.service.EmailSender;
+import com.shop.domain.verificationToken.service.VerificationTokenService;
 import com.shop.global.common.response.ResponseMessage;
 import com.shop.global.common.security.domain.PrincipalDetails;
 import com.shop.global.utils.emuns.UserRole;
@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class AccountApiController {
 
 	private final AccountService service;
-	private final VerificationTokenService tokenService;
+	private final VerificationTokenService verificationTokenService;
 	private final EmailSender emailSender;
 
 	@PostMapping("")
@@ -51,6 +51,9 @@ public class AccountApiController {
 		}
 
 		service.register(accountDto.toEntity());
+		
+		
+		
 		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "계정 생성이 완료되었습니다."), HttpStatus.CREATED);
 	}
 
@@ -83,17 +86,17 @@ public class AccountApiController {
 	@PostMapping("/verify-email")
 	public ResponseEntity<ResponseMessage> createEmailVerification(@AuthenticationPrincipal PrincipalDetails principal) throws Exception {
 		
-		tokenService.createEmailToken(principal.getAccount());
+		VerificationToken verificationToken = verificationTokenService.createVerificationToken(principal.getAccount());
 		
-		SimpleMailMessage mailMessage = emailSender.setEmailVerificationMessage(principal.getAccount());
+		SimpleMailMessage mailMessage = emailSender.setEmailVerificationMessage(verificationToken);
 		emailSender.sendEmail(mailMessage);
 		
 		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "가입하신 이메일로 인증 링크가 전송되었습니다."), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/verify-email/{token}")
+	@PatchMapping("/verify-email/{token}")
 	public ResponseEntity<ResponseMessage> updateAuthToUser(@PathVariable("token") String token) throws Exception {
-		VerificationToken verificationToken = tokenService.findByTokenAndExpirationDateAfterAndExpired(token);
+		VerificationToken verificationToken = verificationTokenService.findByTokenAndExpirationDateAfterAndExpired(token);
 		
 		Account account = service.findById(verificationToken.getAccount().getUserId()).orElse(null);
 		
@@ -103,7 +106,7 @@ public class AccountApiController {
 		
 		account.updateAuth(UserRole.USER);
 		
-		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "가입하신 이메일로 인증 링크가 전송되었습니다."), HttpStatus.CREATED);
+		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "이메일 인증이 완료되었습니다."), HttpStatus.CREATED);
 	}
 
 }

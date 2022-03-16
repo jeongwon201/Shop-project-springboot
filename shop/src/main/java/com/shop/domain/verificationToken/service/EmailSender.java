@@ -1,4 +1,4 @@
-package com.shop.domain.token.service;
+package com.shop.domain.verificationToken.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.shop.domain.Account.domain.Account;
+import com.shop.domain.verificationToken.domain.VerificationToken;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,13 +20,13 @@ public class EmailSender {
 	@Value("${spring.mail.username}")
 	private String from;
 
-	public SimpleMailMessage setEmailVerificationMessage(Account account) {
+	public SimpleMailMessage setEmailVerificationMessage(VerificationToken verificationToken) {
 		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(account.getUsername());
+		mailMessage.setTo(verificationToken.getAccount().getUsername());
 		mailMessage.setFrom(from);
 		mailMessage.setSubject("이메일 인증");
-		mailMessage.setText("http://localhost:8000/token=" + account.get.getToken());
+		mailMessage.setText("http://localhost:8000/account/verify-email/" + verificationToken.getToken());
 		
 		return mailMessage;
 	}

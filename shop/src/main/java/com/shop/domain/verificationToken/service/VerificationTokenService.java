@@ -1,11 +1,11 @@
-package com.shop.domain.token.service;
+package com.shop.domain.verificationToken.service;
 
 import com.shop.domain.Account.domain.Account;
-import com.shop.domain.token.domain.VerificationToken;
+import com.shop.domain.verificationToken.domain.VerificationToken;
 
 public interface VerificationTokenService {
 	
-	public void createEmailToken(Account account);
+	public VerificationToken createVerificationToken(Account account);
 	
 	public VerificationToken findByTokenAndExpirationDateAfterAndExpired(String token);
 	

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.shop.domain.Account.dto.AccountDto;
 import com.shop.domain.Account.service.AccountService;
 import com.shop.global.common.security.domain.PrincipalDetails;
+import com.shop.global.utils.emuns.UserRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,11 +38,11 @@ public class AccountController {
 	@GetMapping("/verify-email")
 	public String verifyEmail(@AuthenticationPrincipal PrincipalDetails principal) throws Exception {
 
-		if (principal.getAccount().getAuth() != "ROLE_GUEST") {
-			return "/";
+		if (principal.getAccount().getAuth().equals(UserRole.GUEST.getValue())) {
+			return "user/account/verify-email";
 		}
 
-		return "user/account/verify-email";
+		return "redirect:/";
 	}
 
 	@GetMapping("/mypage")

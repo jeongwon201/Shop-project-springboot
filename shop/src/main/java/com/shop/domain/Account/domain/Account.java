@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.shop.domain.model.BaseEntity;
-import com.shop.domain.token.domain.VerificationToken;
+import com.shop.domain.verificationToken.domain.VerificationToken;
 import com.shop.global.utils.emuns.UserRole;
 
 import lombok.AccessLevel;

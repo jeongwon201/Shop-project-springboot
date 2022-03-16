@@ -1,4 +1,4 @@
-package com.shop.domain.token.domain;
+package com.shop.domain.verificationToken.domain;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -22,30 +22,29 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class VerificationToken extends BaseEntity{
-	
+public class VerificationToken extends BaseEntity {
+
 	private static final long EMAIL_TOKEN_EXPIRATION_TIME_VALUE = 5L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long emailVerificationId;
-	
+
 	@OneToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private Account account;
-	
+
 	@Column
 	private String token;
-	
+
 	@Column
 	private LocalDateTime expirationDate;
 
 	@Column
-	private boolean isVerified = false;
-	
+	private boolean expired = false;
 
 	public void useToken() {
-		this.isVerified = true;
+		this.expired = true;
 	}
 
 	@Builder
@@ -53,6 +52,6 @@ public class VerificationToken extends BaseEntity{
 		this.expirationDate = LocalDateTime.now().plusMinutes(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
 		this.account = account;
 		this.token = account.getUserId() + "-" + UUID.randomUUID().toString();
-		this.isVerified = false;
+		this.expired = false;
 	}
 }

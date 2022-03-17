@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.global.common.security.domain.PrincipalDetails;
+import com.shop.global.utils.emuns.UserRole;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +27,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 		
 		log.info(account.getUsername() + "님이 로그인하셨습니다.");
 		
-		if(account.getAuth() == "ROLE_GUEST") {
+		if(account.getAuth().equals(UserRole.GUEST.getValue())) {
 			getRedirectStrategy().sendRedirect(request, response, "/account/verify-email");
 		}
 		

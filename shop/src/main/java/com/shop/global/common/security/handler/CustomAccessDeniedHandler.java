@@ -19,7 +19,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			throws IOException, ServletException {
 		
 		log.info("액세스 거부");
-		
+		System.out.println(accessDeniedException.getMessage());
 	}
 
 }

@@ -94,19 +94,4 @@ public class AccountApiController {
 		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "가입하신 이메일로 인증 링크가 전송되었습니다."), HttpStatus.CREATED);
 	}
 	
-	@PatchMapping("/verify-email/{token}")
-	public ResponseEntity<ResponseMessage> updateAuthToUser(@PathVariable("token") String token) throws Exception {
-		VerificationToken verificationToken = verificationTokenService.findByTokenAndExpirationDateAfterAndExpired(token);
-		
-		Account account = service.findById(verificationToken.getAccount().getUserId()).orElse(null);
-		
-		if(account == null) {
-			
-		}
-		
-		account.updateAuth(UserRole.USER);
-		
-		return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED, "이메일 인증이 완료되었습니다."), HttpStatus.CREATED);
-	}
-
 }

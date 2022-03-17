@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.col-center {
+	float: none;
+	margin: 0 auto;
+	padding-left: 70px;
+	padding-right: 70px;
+}
+
+.setup-logo {
+	margin: 10px 10px 50px 10px;
+	padding: 10px;
+}
+
+.btn-login {
+	width: 100%;
+	border-radius: 5px;
+}
+
+.social-login {
+	margin-top: 60px;
+}
+
+.btn-kakao {
+	width: 100%;
+	border-radius: 5px;
+	background-color: #fee500;
+	color: black;
+}
+
+.btn-naver {
+	width: 100%;
+	border-radius: 5px;
+	background-color: #1EC800;
+}
+
+.checkout__input input {
+	margin-bottom: 5px;
+}
+
+.checkout__input {
+	margin-bottom: 10px;
+}
+
+.checkout__input__checkbox label {
+	padding-left: 25px;
+	color: #b7b7b7;
+}
+
+.error_box {
+	margin: 10px 10px 25px 10px;
+}
+
+.error_message {
+	font-size: 15px;
+	font-weight: bold;
+	color: red;
+}

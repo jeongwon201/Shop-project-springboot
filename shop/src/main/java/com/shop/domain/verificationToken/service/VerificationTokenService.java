@@ -9,4 +9,6 @@ public interface VerificationTokenService {
 	
 	public VerificationToken findByTokenAndExpirationDateAfterAndExpired(String token);
 	
+	public void useToken(VerificationToken verificationToken);
+	
 }

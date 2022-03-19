@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.dto.AccountDto;
@@ -53,19 +54,25 @@ public class AccountController {
 		return "redirect:/";
 	}
 	
-	@PutMapping("/verify-email/{token}")
-	public String updateAuthToUser(@PathVariable("token") String token) throws Exception {
+	@PreAuthorize("hasRole('GUEST')")
+	@GetMapping("/verify-email/{token}")
+	public String updateAuthToUser(@PathVariable("token") String token, RedirectAttributes rttr) throws Exception {
 		VerificationToken verificationToken = verificationTokenService.findByTokenAndExpirationDateAfterAndExpired(token);
 		
 		Account account = service.findById(verificationToken.getAccount().getUserId()).orElse(null);
 		
 		if(account == null) {
 			System.out.println("토큰 정보가 일치하지 않거나, 만료된 토큰입니다.");
+			rttr.addAttribute("msg", "토큰 정보가 일치하지 않거나, 만료된 토큰입니다.");
+			return "redirect:/account/verify-email";
 		}
 		
-		account.updateAuth(UserRole.USER);
+		service.verifyEmail(account);
+		verificationTokenService.useToken(verificationToken);
 		
-		return "redirect:/account/verify-email";
+		rttr.addFlashAttribute("msg", "verifyEmailSuccess");
+		
+		return "redirect:/";
 	}
 
 	@GetMapping("/mypage")

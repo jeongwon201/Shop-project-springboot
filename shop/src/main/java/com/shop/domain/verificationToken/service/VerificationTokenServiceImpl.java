@@ -38,4 +38,11 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 		return verificationToken.orElse(null);
 	}
 
+	@Override
+	public void useToken(VerificationToken verificationToken) {
+		verificationToken.useToken();
+		repository.save(verificationToken);
+	}
+
+
 }

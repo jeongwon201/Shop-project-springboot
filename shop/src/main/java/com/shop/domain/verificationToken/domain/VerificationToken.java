@@ -28,7 +28,7 @@ public class VerificationToken extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long emailVerificationId;
+	private Long tokenId;
 
 	@OneToOne
 	@JoinColumn(name = "user_id")

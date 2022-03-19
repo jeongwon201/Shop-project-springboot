@@ -16,4 +16,5 @@ public interface AccountService {
     
     Optional<Account> findById(Long userId) throws Exception;
     
+    public void verifyEmail(Account account) throws Exception;
 }

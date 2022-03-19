@@ -510,7 +510,16 @@
         </div>
     </section>
     <!-- Latest Blog Section End -->
-
+	
+	<script th:inline="javascript">
+		/* <![CDATA[ */
+			var result = /*[[${msg}]]*/ 'msg';
+			if(result == "verifyEmailSuccess") {
+				alert(/*[[#{message.verifyEmailSuccess}]]*/ 'msg');
+			}
+		/* ]]>] */
+	</script>
+	
 </div>
 
 </html>

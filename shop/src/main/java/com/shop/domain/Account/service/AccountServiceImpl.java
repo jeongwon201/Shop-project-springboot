@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.shop.domain.Account.domain.Account;
 import com.shop.domain.Account.repository.AccountRepository;
+import com.shop.global.utils.emuns.UserRole;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,6 +46,12 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Optional<Account> findById(Long userId) throws Exception {
 		return repository.findById(userId);
+	}
+
+	@Override
+	public void verifyEmail(Account account) throws Exception {
+		account.updateAuth(UserRole.USER);
+		repository.save(account);
 	}
 
 }

@@ -1,12 +1,15 @@
 package com.shop.domain.verificationToken.service;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.shop.domain.Account.domain.Account;
 import com.shop.domain.verificationToken.domain.VerificationToken;
 
 import lombok.RequiredArgsConstructor;
@@ -20,19 +23,23 @@ public class EmailSender {
 	@Value("${spring.mail.username}")
 	private String from;
 
-	public SimpleMailMessage setEmailVerificationMessage(VerificationToken verificationToken) {
+	public MimeMessage setEmailVerificationMessage(VerificationToken verificationToken) throws Exception {
+
+		String verifyForm = "<html><body>"
+				+ "<a href='http://localhost:8000/account/verify-email/" + verificationToken.getToken() + "'>인증하기</a>"
+				+ "</body><html>";
 		
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(verificationToken.getAccount().getUsername());
-		mailMessage.setFrom(from);
-		mailMessage.setSubject("이메일 인증");
-		mailMessage.setText("http://localhost:8000/account/verify-email/" + verificationToken.getToken());
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		mimeMessage.setSubject("이메일 인증");
+		mimeMessage.setText(verifyForm, "utf-8", "html");
+		mimeMessage.setFrom(new InternetAddress(from));
+		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(verificationToken.getAccount().getUsername()));
 		
-		return mailMessage;
+		return mimeMessage;
 	}
 	
 	@Async
-	public void sendEmail(SimpleMailMessage email) {
-		javaMailSender.send(email);
+	public void sendEmail(MimeMessage mimeMessage) {
+		javaMailSender.send(mimeMessage);
 	}
 }

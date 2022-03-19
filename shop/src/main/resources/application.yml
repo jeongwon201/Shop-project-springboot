@@ -6,14 +6,14 @@ spring:
 
   datasource:
     driver-class-name: ENC(Exn1HtBHYTsjGwNou8uY2xHGOLDqN+g3KjG9cJOYJcwrG0OpIL8sBA==)
-    url: ENC(QdSwGP0H9y8T9oKHwxPhxq3bLf5kYr5YD2+AWCnfFOPRB1QBNQDXmEoWkO1iebRZlCEy7HPE6Aa9WCTi6i7Ln3IWD5XHDp2XHhoG2Ly2XJE=)
+    url: ENC(sm/GQY4kRu7MomLKvePoNRCO7wFHROUuW2h2zWSSuE3Ttjq2pmRmHVjpwFlGx/F8)
     username: ENC(evrGsTrRWDYdxA80AGiTVpqiy4N5XHmk)
     password: ENC(IS9Hr4GT0DJtG4REYaJV4Q==)
 
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
       use-new-id-generator-mappings: false

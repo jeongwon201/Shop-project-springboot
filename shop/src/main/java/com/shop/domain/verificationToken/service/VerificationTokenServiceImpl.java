@@ -1,12 +1,12 @@
 package com.shop.domain.verificationToken.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.shop.domain.Account.domain.Account;
 import com.shop.domain.verificationToken.domain.VerificationToken;
 import com.shop.domain.verificationToken.repository.VerificationTokenRepository;
 
@@ -22,9 +22,10 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 	private String from;
 	
 	@Override
-	public VerificationToken createVerificationToken(Account account) {
+	public VerificationToken createVerificationToken(Long userId) {
+		
 		VerificationToken verificationToken = VerificationToken.builder()
-				.account(account)
+				.userId(userId)
 				.build();
 		
 		repository.save(verificationToken);
@@ -39,10 +40,19 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 	}
 
 	@Override
+	public int numberOfTokensAvailable(Long userId) {
+		
+		List<VerificationToken> tokenList = repository.findByUserIdAndAndExpirationDateAfterAndExpired(userId, LocalDateTime.now(), false);
+		
+		return tokenList.size();
+	}
+
+	@Override
 	public void useToken(VerificationToken verificationToken) {
 		verificationToken.useToken();
 		repository.save(verificationToken);
 	}
+
 
 
 }

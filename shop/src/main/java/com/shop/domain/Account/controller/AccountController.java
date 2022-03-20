@@ -59,7 +59,7 @@ public class AccountController {
 	public String updateAuthToUser(@PathVariable("token") String token, RedirectAttributes rttr) throws Exception {
 		VerificationToken verificationToken = verificationTokenService.findByTokenAndExpirationDateAfterAndExpired(token);
 		
-		Account account = service.findById(verificationToken.getAccount().getUserId()).orElse(null);
+		Account account = service.findById(verificationToken.getUserId()).orElse(null);
 		
 		if(account == null) {
 			System.out.println("토큰 정보가 일치하지 않거나, 만료된 토큰입니다.");

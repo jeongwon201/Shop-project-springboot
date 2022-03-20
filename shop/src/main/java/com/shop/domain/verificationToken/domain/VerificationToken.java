@@ -30,9 +30,8 @@ public class VerificationToken extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tokenId;
 
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private Account account;
+	@Column
+	private Long userId;
 
 	@Column
 	private String token;
@@ -48,10 +47,10 @@ public class VerificationToken extends BaseEntity {
 	}
 
 	@Builder
-	public VerificationToken(Account account) {
+	public VerificationToken(Long userId) {
 		this.expirationDate = LocalDateTime.now().plusMinutes(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
-		this.account = account;
-		this.token = account.getUserId() + "-" + UUID.randomUUID().toString();
+		this.userId = userId;
+		this.token = userId + "-" + UUID.randomUUID().toString();
 		this.expired = false;
 	}
 }

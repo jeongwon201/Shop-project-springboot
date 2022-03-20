@@ -8,30 +8,14 @@
 }
 
 .setup-logo {
-	margin: 10px 10px 50px 10px;
+	margin: 10px 10px 100px 10px;
 	padding: 10px;
 }
 
-.btn-login {
-	width: 100%;
+.btn-submit {
+	width: 30%;
 	border-radius: 5px;
-}
-
-.social-login {
-	margin-top: 60px;
-}
-
-.btn-kakao {
-	width: 100%;
-	border-radius: 5px;
-	background-color: #fee500;
-	color: black;
-}
-
-.btn-naver {
-	width: 100%;
-	border-radius: 5px;
-	background-color: #1EC800;
+	padding: 10px 30px;
 }
 
 .checkout__input input {
@@ -39,7 +23,7 @@
 }
 
 .checkout__input {
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 .checkout__input__checkbox label {

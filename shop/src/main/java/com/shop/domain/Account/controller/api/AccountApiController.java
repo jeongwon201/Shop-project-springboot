@@ -84,7 +84,11 @@ public class AccountApiController {
 	@PostMapping("/verify-email")
 	public ResponseEntity<ResponseMessage> createEmailVerification(@AuthenticationPrincipal PrincipalDetails principal) throws Exception {
 		
-		VerificationToken verificationToken = verificationTokenService.createVerificationToken(principal.getAccount());
+		if(verificationTokenService.numberOfTokensAvailable(principal.getAccount().getUserId()) > 5) {
+			return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.TOO_MANY_REQUESTS, "5분 뒤에 다시 시도하세요."), HttpStatus.TOO_MANY_REQUESTS);
+		}
+		
+		VerificationToken verificationToken = verificationTokenService.createVerificationToken(principal.getAccount().getUserId());
 		
 		MimeMessage mailMessage = emailSender.setEmailVerificationMessage(verificationToken);
 		emailSender.sendEmail(mailMessage);
